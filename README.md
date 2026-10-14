@@ -10,10 +10,23 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
 - **`/vision-engine`**: Skrip *backend* dan *worker* berbasis Python. Bertugas untuk melakukan penarikan data dari API Lalu Lintas (Traffic API) dan memproses tangkapan CCTV publik menggunakan OpenCV untuk memvalidasi kepadatan antrean.
 
 ## 🛠️ Tech Stack
-- **Web & UI**: Next.js, React, TypeScript, Tailwind CSS, Leaflet / React-Map-GL
-- **Database & Realtime Data**: Supabase (PostgreSQL)
-- **AI & Computer Vision Pipeline**: Python, OpenCV
-- **Deployment**: Vercel
+
+**Web & UI**  
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+**Database & Realtime Data**  
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+**AI & Computer Vision Pipeline**  
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
+
+**Deployment**  
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 ## 🚀 Cara Menjalankan Proyek Secara Lokal
 
@@ -27,5 +40,5 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
 
 1. **Clone repositori ini:**
    ```bash
-   git clone [https://github.com/satset-dev/pantau-spbu-malang.git](https://github.com/satset-dev/pantau-spbu-malang.git)
+   git clone https://github.com/satset-dev/pantau-spbu-malang.git
    cd pantau-spbu-malang
