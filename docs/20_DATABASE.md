@@ -26,6 +26,12 @@ Skema awal dari PRD. Database: Neon PostgreSQL (lihat ADR-002). Migrasi: `web-cl
 | `source` | enum | `CCTV`, `TRAFFIC_API`, `CROWDSOURCE` |
 | `confidence_score` | integer | 1–100 |
 | `created_at` | timestamptz | default `now()` |
+| `reporter_hash` | text, null | Migrasi 002. `sha256(ip\|user-agent\|REPORT_HASH_SALT)`; hanya untuk laporan crowdsourcing (rate limit) |
+| `distance_m` | integer, null | Migrasi 002. Jarak pelapor ke SPBU saat verifikasi geofence. Koordinat mentah pelapor **tidak disimpan** |
+
+## `notification_log` (migrasi 003)
+
+Status pengiriman notifikasi untuk mencegah spam: `spbu_id`, `status`, `confidence`, `channel` (`telegram`, `whatsapp`, atau `system` sebagai penanda pemulihan NORMAL), `sent_at`; indeks per SPBU dan kanal. Lihat [05_ARCHITECTURE.md](05_ARCHITECTURE.md).
 
 ## Catatan
 

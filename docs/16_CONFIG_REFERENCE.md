@@ -19,9 +19,19 @@ Seluruh nilai rahasia **tidak boleh** dikomit. Simpan di `.env` lokal (diabaikan
 | `NEON_AUTH_JWKS_URL` | web-client (server) | JWKS untuk verifikasi token — nilai persis _TBD_, salin utuh dari konsol Neon |
 | `STORAGE_BUCKET` | web-client, vision-engine | Nama bucket (contoh di dokumentasi Neon: `assets`); nama final _TBD_ |
 | `TRAFFIC_API_KEY` | vision-engine | Kunci Google/TomTom — _TBD_ |
-| `TELEGRAM_BOT_TOKEN` | serverless webhook | Phase 4 — _TBD_ |
+| `TELEGRAM_BOT_TOKEN` | web-client (server) | Bot Telegram; kosong = kanal nonaktif |
+| `TELEGRAM_CHAT_ID` | web-client (server) | Chat/grup tujuan notifikasi |
+| `WHATSAPP_WEBHOOK_URL` | web-client (server) | Webhook generik (provider-agnostik); menerima `POST {text, source, type}`; kosong = nonaktif |
+| `WHATSAPP_WEBHOOK_TOKEN` | web-client (server) | Opsional; dikirim sebagai `Authorization: Bearer` |
+| `CRON_SECRET` | web-client (server) | **Wajib** untuk `/api/cron/notify`; kosong = endpoint selalu 401. Vercel Cron mengirimnya otomatis sebagai Bearer |
+| `CRITICAL_MIN_CONFIDENCE` | web-client (server) | Ambang keyakinan status kritis; default 70 |
+| `NOTIFY_COOLDOWN_MINUTES` | web-client (server) | Jeda minimum antar-notifikasi per SPBU; default 60 |
+| `NEXT_PUBLIC_SITE_URL` / `SITE_URL` | web-client | Tautan peta pada pesan notifikasi |
+| `CONFIDENCE_WINDOW_MINUTES` | web-client (server) | Jendela data agregasi; default 30 |
+| `CONFIDENCE_HALF_LIFE_MINUTES` | web-client (server) | Half-life peluruhan; default 10 |
+| `REPORT_HASH_SALT` | web-client (server) | Salt hash pelapor. **Wajib diganti** (acak, rahasia) di produksi; default hanya untuk dev |
 
-Aturan: tidak ada variabel di atas yang berawalan `NEXT_PUBLIC_` (ADR-007).
+Aturan: tidak ada variabel rahasia yang berawalan `NEXT_PUBLIC_` (ADR-007); satu-satunya variabel publik adalah `NEXT_PUBLIC_SITE_URL` (bukan rahasia).
 
 ## Dependensi Node untuk Storage
 
