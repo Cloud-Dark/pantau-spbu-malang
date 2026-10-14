@@ -1,8 +1,9 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
+import ReportModal from "@/components/report-modal";
 import { STATUS_META, type SpbuWithStatus } from "@/lib/spbu";
 
 const MALANG: [number, number] = [-7.9666, 112.6326];
@@ -11,6 +12,9 @@ const POLL_MS = 10_000; // ADR-006: polling pada Phase 1
 export default function SpbuMap() {
   const [items, setItems] = useState<SpbuWithStatus[]>([]);
   const [error, setError] = useState(false);
+  const [reporting, setReporting] = useState<{ id: string; name: string } | null>(null);
+  const loadRef = useRef<() => Promise<void>>(async () => {});
+  const refresh = useCallback(() => loadRef.current(), []);
 
   useEffect(() => {
     let active = true;
@@ -27,6 +31,7 @@ export default function SpbuMap() {
         if (active) setError(true);
       }
     };
+    loadRef.current = load;
     load();
     const timer = setInterval(load, POLL_MS);
     return () => {
@@ -65,6 +70,14 @@ export default function SpbuMap() {
                     Diperbarui: {new Date(s.updated_at).toLocaleString("id-ID")}
                   </>
                 )}
+                <br />
+                <button
+                  type="button"
+                  onClick={() => setReporting({ id: s.id, name: s.name })}
+                  className="mt-2 w-full rounded-md bg-blue-700 px-3 py-2 text-sm font-semibold text-white"
+                >
+                  Laporkan status
+                </button>
               </Popup>
             </CircleMarker>
           );
@@ -79,6 +92,9 @@ export default function SpbuMap() {
           </div>
         ))}
       </div>
+      {reporting && (
+        <ReportModal spbu={reporting} onClose={() => setReporting(null)} onSuccess={refresh} />
+      )}
       {error && (
         <div role="alert" className="absolute left-1/2 top-4 z-[1000] -translate-x-1/2 rounded bg-red-600 px-3 py-1 text-sm text-white">
           Gagal memuat data SPBU. Mencoba lagi…
