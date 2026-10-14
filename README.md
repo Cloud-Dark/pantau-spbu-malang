@@ -6,8 +6,8 @@ Inisiatif *open-source* untuk memantau ketersediaan BBM dan panjang antrean di b
 
 Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagian utama:
 
-- **`/web-client`**: Antarmuka *frontend* interaktif berbasis peta. Dibangun menggunakan Next.js dan Tailwind CSS, terhubung langsung ke basis data Supabase untuk pembaruan data secara *real-time* (mendukung pelaporan *crowdsourcing* dan visualisasi).
-- **`/vision-engine`**: Skrip *backend* dan *worker* berbasis Python. Bertugas untuk melakukan penarikan data dari API Lalu Lintas (Traffic API) dan memproses tangkapan CCTV publik menggunakan OpenCV untuk memvalidasi kepadatan antrean.
+- **`/web-client`**: Antarmuka *frontend* interaktif berbasis peta. Dibangun menggunakan Next.js dan Tailwind CSS, mengambil data dari basis data Neon melalui server (Route Handler) untuk pembaruan status mendekati *real-time* (mendukung pelaporan *crowdsourcing* dan visualisasi).
+- **`/vision-engine`**: *Worker* berbasis Node.js (TypeScript). Bertugas untuk melakukan penarikan data dari API Lalu Lintas (Traffic API) dan memproses tangkapan CCTV publik dengan ffmpeg dan model YOLO (ONNX) untuk memvalidasi kepadatan antrean.
 
 ## 🛠️ Tech Stack
 
@@ -18,12 +18,12 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 **Database & Realtime Data**  
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Neon](https://img.shields.io/badge/Neon-00E599?style=for-the-badge&logo=neon&logoColor=black)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
 **AI & Computer Vision Pipeline**  
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![ONNX](https://img.shields.io/badge/ONNX_Runtime-005CED?style=for-the-badge&logo=onnx&logoColor=white)
 
 **Deployment**  
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
@@ -31,9 +31,9 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
 ## 🚀 Cara Menjalankan Proyek Secara Lokal
 
 ### Prasyarat
-- [Node.js](https://nodejs.org/) (versi 18.x atau terbaru)
-- [Python](https://www.python.org/) (versi 3.9 atau terbaru)
-- Akun [Supabase](https://supabase.com/) untuk inisialisasi basis data
+- [Node.js](https://nodejs.org/) (versi 20.x atau terbaru)
+- [ffmpeg](https://ffmpeg.org/) (opsional, hanya untuk jalur CCTV)
+- Akun [Neon](https://neon.tech/) untuk basis data PostgreSQL (lihat `docs/16_CONFIG_REFERENCE.md`)
 - Git
 
 ### Langkah Instalasi
@@ -42,3 +42,76 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
    ```bash
    git clone https://github.com/satset-dev/pantau-spbu-malang.git
    cd pantau-spbu-malang
+   ```
+
+2. **Siapkan environment** — buat `web-client/.env.local` berisi `DATABASE_URL` (lihat `.env.example` dan `docs/16_CONFIG_REFERENCE.md`).
+
+3. **Migrasi, seed, dan jalankan:**
+   ```bash
+   cd web-client
+   npm install
+   npm run db:seed        # buat tabel + 8 SPBU contoh (koordinat perkiraan)
+   npm run dev            # http://localhost:3000
+   npm run db:simulate    # tambah status acak; peta ikut berubah dalam ~10 detik
+   ```
+
+4. **Worker (opsional):**
+   ```bash
+   cd vision-engine
+   npm install
+   npm run run:once       # satu siklus Traffic/CCTV (butuh DATABASE_URL; lihat vision-engine/README.md)
+   ```
+
+## ✅ Status Pengembangan (per 2026-10-14)
+
+### Fase 1 — MVP dan Scaffolding
+- [x] Buat GitHub Organization dan inisiasi monorepo
+- [x] Struktur `web-client` (Next.js) dan `vision-engine`
+- [x] Project Neon (database, Auth, Storage) dan tabel dasar (migrasi 001)
+- [x] Peta SPBU dari database (Leaflet + `/api/spbu`)
+- [x] Pembaruan status di frontend via polling 10 detik
+- [ ] Deploy `web-client` ke Vercel
+
+### Fase 2 — Crowdsourcing dan Geofencing
+- [x] Modal/UI pelaporan status
+- [x] `navigator.geolocation` untuk koordinat pelapor
+- [x] Server menolak laporan di luar radius 100 m (plus cek akurasi dan rate limit)
+
+### Fase 3 — Vision Engine dan Traffic Integration
+- [x] Proyek Node.js (TypeScript) `/vision-engine` (menggantikan Python)
+- [x] Penjadwal penarik Traffic API (TomTom) — kode dan uji mock
+- [x] Pipeline CCTV (ffmpeg + YOLO ONNX) — kode dan uji sintetis
+- [x] `INSERT` otomatis ke `status_logs` (teruji ke Neon nyata)
+
+### Fase 4 — Rilis Publik dan Otomasi
+- [x] Algoritma pembobotan confidence score
+- [x] Webhook notifikasi Telegram/WhatsApp (`/api/cron/notify`)
+- [x] Materi promosi (`docs/promosi/`)
+- [ ] Menjalankan kampanye promosi ke warga Malang
+
+## 🚧 Yang Masih Kurang
+
+**Wajib sebelum rilis publik**
+- [ ] **Deploy ke Vercel** — import repo, Root Directory `web-client`, isi environment variables.
+- [ ] **Environment produksi** — `DATABASE_URL`, `CRON_SECRET` (tanpa ini `/api/cron/notify` selalu 401), `REPORT_HASH_SALT` (acak dan rahasia), `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `WHATSAPP_WEBHOOK_URL`.
+- [ ] **Rotasi kredensial** — password Neon dan secret storage pernah terbagikan di chat.
+- [ ] **Koordinat SPBU asli** — seed saat ini hanya 8 titik perkiraan; titik yang meleset membuat Traffic API membaca jalan lain.
+- [ ] **Plan Vercel** — cron tiap 10 menit tidak diizinkan di plan Hobby (hanya harian).
+
+**Belum terverifikasi di dunia nyata**
+- [ ] **TomTom Traffic API** — daftar akun, isi `TRAFFIC_API_KEY`, cek kuota; parsing baru diuji dengan mock.
+- [ ] **Akses CCTV Dishub** — izin dan format (snapshot/HLS/RTSP) belum dikonfirmasi.
+- [ ] **Model YOLO (ONNX)** dan `onnxruntime-node` — belum ada model; detektor baru diuji dengan sesi palsu.
+- [ ] **Notifikasi nyata** — pengiriman ke Telegram/WhatsApp belum pernah diuji (baru dengan mock).
+- [ ] **Workflow GitHub Actions** (`vision-engine-cron.yml`) belum pernah dijalankan.
+
+**Kalibrasi dan penguatan**
+- [ ] Kalibrasi bobot confidence (CCTV 0,40 / Traffic 0,35 / warga 0,25) dan ambang (`TRAFFIC_NORMAL_RATIO` 0,7; `CCTV_QUEUE_THRESHOLD` 8; `CRITICAL_MIN_CONFIDENCE` 70) dengan data lapangan.
+- [ ] Rate limit laporan belum atomik (celah *race*); cron ganda bisa mengirim notifikasi duplikat (belum ada lock).
+- [ ] Perlindungan spam lebih kuat (CAPTCHA/limit di edge), karena rate limit berbasis IP+UA mudah dielakkan; GPS *spoofing* tidak bisa dicegah penuh.
+- [ ] Kebijakan privasi publik dan retensi `reporter_hash`.
+- [ ] Opsi lebih cepat dari polling (SSE) bila diperlukan.
+- [ ] Penyedia traffic Google belum diimplementasikan (hanya TomTom).
+- [ ] Dokumen belum ada: `docs/standards/` dan `12_TEST_STRATEGY.md`.
+
+Dokumentasi lengkap ada di [`docs/`](docs/README.md); detail progres di [`docs/07_MASTER_CHECKLIST.md`](docs/07_MASTER_CHECKLIST.md).

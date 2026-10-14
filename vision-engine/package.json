@@ -1,0 +1,31 @@
+{
+  "name": "pantau-spbu-vision-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Worker Node.js: Traffic API + CCTV (YOLO ONNX) -> status_logs Pantau SPBU Malang",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts start",
+    "run:once": "tsx src/index.ts once",
+    "cctv:check": "tsx src/cli/cctv-check.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "test:db": "RUN_DB_TESTS=1 tsx --test test/db.integration.test.ts"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
+    "jpeg-js": "^0.4.4",
+    "tsx": "^4.19.0"
+  },
+  "optionalDependencies": {
+    "onnxruntime-node": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}
