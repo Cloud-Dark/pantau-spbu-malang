@@ -33,7 +33,9 @@
 - **Alternatif ditolak:** Validasi klien saja (mudah dimanipulasi).
 
 ## ADR-005 — Pustaka peta
-- **Status:** Terbuka — Leaflet atau React-Map-GL (_TBD_).
+- **Status:** Diputuskan 2026-10-14 — Leaflet + react-leaflet dengan tile OpenStreetMap.
+- **Alasan:** Tanpa API key, ringan, cukup untuk penanda berwarna.
+- **Alternatif ditolak:** React-Map-GL (butuh penyedia tile/token).
 
 ## ADR-006 — Mekanisme pembaruan real-time tanpa Supabase Realtime
 - **Tanggal:** 2026-10-14

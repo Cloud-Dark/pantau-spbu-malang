@@ -4,7 +4,7 @@
 > Terakhir diperbarui: 2026-10-14
 > Pemilik: satset-dev
 
-Skema awal dari PRD. Database: Neon PostgreSQL (lihat ADR-002). Belum ada migrasi di repositori (_TBD_ — alat migrasi dipilih kemudian).
+Skema awal dari PRD. Database: Neon PostgreSQL (lihat ADR-002). Migrasi: `web-client/db/migrations/*.sql`, dijalankan `npm run db:migrate` (pelacakan di `schema_migrations`). Seed contoh: `web-client/db/seed.sample.sql` (`npm run db:seed`) — koordinat hanya perkiraan dan **wajib diverifikasi** sebelum rilis. Enum diimplementasikan sebagai `text` + `CHECK`.
 
 ## `spbu_locations`
 

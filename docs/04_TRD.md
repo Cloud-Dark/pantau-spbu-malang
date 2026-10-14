@@ -37,6 +37,6 @@
 ## 3. Batasan Teknis
 
 - Next.js 16.4 memiliki *breaking changes*; baca `web-client/node_modules/next/dist/docs/` sebelum menulis kode (lihat `web-client/AGENTS.md`).
-- Folder `web-client/` saat ini masih templat bawaan `create-next-app`.
+- `web-client` memakai `cacheComponents`; Route Handler `/api/spbu` berjalan saat request (tanpa cache) dan peta dirender hanya di klien.
 - `vision-engine/main.py` masih placeholder.
-- Leaflet butuh render sisi klien (tanpa SSR) — _TBD_ verifikasi.
+- Pustaka peta: Leaflet + react-leaflet, dirender klien saja (ADR-005 diputuskan).

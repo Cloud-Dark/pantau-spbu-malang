@@ -42,3 +42,15 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
    ```bash
    git clone https://github.com/satset-dev/pantau-spbu-malang.git
    cd pantau-spbu-malang
+   ```
+
+2. **Siapkan environment** — buat `web-client/.env.local` berisi `DATABASE_URL` (lihat `.env.example` dan `docs/16_CONFIG_REFERENCE.md`).
+
+3. **Migrasi, seed, dan jalankan:**
+   ```bash
+   cd web-client
+   npm install
+   npm run db:seed        # buat tabel + 8 SPBU contoh (koordinat perkiraan)
+   npm run dev            # http://localhost:3000
+   npm run db:simulate    # tambah status acak; peta ikut berubah dalam ~10 detik
+   ```

@@ -9,7 +9,7 @@ Tanggal target belum ditetapkan (_TBD_). Status: ✅ selesai · 🚧 berjalan ·
 | Milestone | Cakupan | Status |
 |---|---|---|
 | M0 — Inisiasi | Organization, monorepo, scaffolding awal | ✅ |
-| M1 — MVP | Database, peta SPBU, pembaruan realtime (polling/SSE) | 🚧 |
+| M1 — MVP | Database, peta SPBU, pembaruan status (polling) | ✅ kode · 🚧 deploy Vercel |
 | M2 — Crowdsourcing | UI laporan, geolocation, geofence 100 m | 📋 |
 | M3 — Data Otomatis | Vision engine, Traffic API, insert otomatis | 📋 |
 | M4 — Rilis Publik | Confidence score, notifikasi, promosi | 📋 |

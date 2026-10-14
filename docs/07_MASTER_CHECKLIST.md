@@ -8,10 +8,10 @@
 - [x] Buat GitHub Organization dan inisiasi monorepo
 - [x] Inisiasi struktur `web-client` (Next.js) dan `vision-engine` (placeholder)
 - [x] Provisioning project Neon (database, Auth, Storage) — kredensial dikelola di luar repositori
-- [ ] Buat tabel dasar di Neon (migrasi)
-- [ ] Hubungkan `web-client` dengan Vercel CLI
-- [ ] Peta sederhana menampilkan titik SPBU dari database
-- [ ] Pembaruan status realtime di frontend (polling → SSE, ADR-006)
+- [x] Buat tabel dasar di Neon (migrasi `web-client/db/migrations/001_init.sql`)
+- [ ] Deploy `web-client` ke Vercel (butuh akun Vercel pemilik; set `DATABASE_URL` di environment Vercel)
+- [x] Peta sederhana menampilkan titik SPBU dari database (Leaflet + `/api/spbu`)
+- [x] Pembaruan status di frontend via polling 10 detik (ADR-006; SSE opsional kemudian)
 
 ## Fase 2 — Crowdsourcing dan Geofencing
 - [ ] Modal/UI pelaporan status
