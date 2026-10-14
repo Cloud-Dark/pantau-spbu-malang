@@ -11,6 +11,11 @@ export type SpbuWithStatus = {
   source: StatusSource | null;
   confidence_score: number | null;
   updated_at: string | null;
+  // Field agregat (Fase 4); opsional agar konsumen lama tetap valid.
+  sources?: StatusSource[];
+  stale?: boolean;
+  sample_count?: number;
+  last_seen_at?: string | null;
 };
 
 export const STATUS_META: Record<SpbuStatus | "UNKNOWN", { label: string; color: string }> = {
