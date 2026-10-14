@@ -13,7 +13,7 @@
 | Neon PostgreSQL | Penyimpanan data (koneksi *pooled*) |
 | Neon Auth | Autentikasi (jika dibutuhkan) |
 | Neon Storage (S3-compatible) | Berkas: cuplikan CCTV, bukti laporan |
-| Vision Engine (Python) | Ambil Traffic API, olah CCTV, tulis `status_logs` |
+| Vision Engine (Node.js/TypeScript) | Ambil Traffic API, olah CCTV, tulis `status_logs` |
 | Sumber eksternal | Google/TomTom Traffic API, CCTV Dishub, Telegram/WhatsApp |
 
 ## 2. Diagram
@@ -25,7 +25,7 @@ flowchart LR
     U -->|laporan + GPS| API[Route Handler / Serverless]
     API -->|validasi radius 100 m, INSERT| DB[(Neon PostgreSQL)]
     VE -->|upload cuplikan| S3[(Neon Storage S3)]
-    T[Traffic API] --> VE[Vision Engine Python]
+    T[Traffic API] --> VE[Vision Engine Node.js]
     C[CCTV Dishub] --> VE
     VE -->|INSERT status_logs| DB
     DB -->|status kritis| N[Webhook Telegram/WhatsApp]

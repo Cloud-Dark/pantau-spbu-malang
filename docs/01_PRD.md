@@ -27,7 +27,7 @@ Antrean panjang di SPBU Malang akibat kelangkaan/keterlambatan pasokan BBM. Warg
 | F-03 | Pelaporan status oleh warga (modal/UI) | Must | 2 |
 | F-04 | Validasi geofencing laporan (radius 100 m) | Must | 2 |
 | F-05 | Penarikan Traffic API (radius 50 m dari gerbang SPBU) | Should | 3 |
-| F-06 | Deteksi antrean via CCTV (OpenCV/YOLO) | Could | 3 |
+| F-06 | Deteksi antrean via CCTV (YOLO via ONNX, Node.js — ADR-008) | Could | 3 |
 | F-07 | *Confidence score* gabungan tiga sumber | Must | 4 |
 | F-08 | Notifikasi Telegram/WhatsApp saat SPBU kritis | Should | 4 |
 | F-09 | Filter/pencarian SPBU, detail SPBU | Could | _TBD_ |
@@ -35,7 +35,7 @@ Antrean panjang di SPBU Malang akibat kelangkaan/keterlambatan pasokan BBM. Warg
 ## 4. Strategi Akuisisi Data (Sensor Fusion)
 
 1. **Traffic API** (primary trigger): kepadatan lalu lintas pada radius 50 m dari gerbang SPBU (Google/TomTom).
-2. **Computer Vision** (validasi): hitung kendaraan antre dari CCTV publik dengan OpenCV/YOLO.
+2. **Computer Vision** (validasi): hitung kendaraan antre dari CCTV publik dengan model YOLO (ONNX) di worker Node.js, bukan Python/OpenCV (ADR-008).
 3. **Crowdsourcing**: laporan warga, divalidasi geofencing (GPS perangkat dalam radius SPBU).
 
 ## 5. User Story

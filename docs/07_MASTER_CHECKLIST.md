@@ -19,10 +19,10 @@
 - [ ] Middleware menolak laporan di luar radius 100 m
 
 ## Fase 3 — Vision Engine dan Traffic Integration
-- [ ] Inisiasi proyek Python `/vision-engine` (struktur nyata, bukan placeholder)
+- [ ] Inisiasi proyek Node.js (TypeScript) `/vision-engine` (struktur nyata, bukan placeholder)
 - [ ] Cron job penarik Traffic API pada poligon SPBU
-- [ ] Integrasi stream CCTV Dishub dengan OpenCV (jika dapat diakses)
-- [ ] Skrip Python `INSERT` otomatis ke `status_logs`
+- [ ] Integrasi stream CCTV Dishub dengan ffmpeg + ONNX YOLO (jika dapat diakses)
+- [ ] Skrip Node.js `INSERT` otomatis ke `status_logs`
 
 ## Fase 4 — Rilis Publik dan Otomasi
 - [ ] Algoritma pembobotan confidence score

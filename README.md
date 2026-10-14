@@ -7,7 +7,7 @@ Inisiatif *open-source* untuk memantau ketersediaan BBM dan panjang antrean di b
 Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagian utama:
 
 - **`/web-client`**: Antarmuka *frontend* interaktif berbasis peta. Dibangun menggunakan Next.js dan Tailwind CSS, mengambil data dari basis data Neon melalui server (Route Handler) untuk pembaruan status mendekati *real-time* (mendukung pelaporan *crowdsourcing* dan visualisasi).
-- **`/vision-engine`**: Skrip *backend* dan *worker* berbasis Python. Bertugas untuk melakukan penarikan data dari API Lalu Lintas (Traffic API) dan memproses tangkapan CCTV publik menggunakan OpenCV untuk memvalidasi kepadatan antrean.
+- **`/vision-engine`**: *Worker* berbasis Node.js (TypeScript). Bertugas untuk melakukan penarikan data dari API Lalu Lintas (Traffic API) dan memproses tangkapan CCTV publik dengan ffmpeg dan model YOLO (ONNX) untuk memvalidasi kepadatan antrean.
 
 ## 🛠️ Tech Stack
 
@@ -22,8 +22,8 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
 **AI & Computer Vision Pipeline**  
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![ONNX](https://img.shields.io/badge/ONNX_Runtime-005CED?style=for-the-badge&logo=onnx&logoColor=white)
 
 **Deployment**  
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
@@ -31,8 +31,8 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
 ## 🚀 Cara Menjalankan Proyek Secara Lokal
 
 ### Prasyarat
-- [Node.js](https://nodejs.org/) (versi 18.x atau terbaru)
-- [Python](https://www.python.org/) (versi 3.9 atau terbaru)
+- [Node.js](https://nodejs.org/) (versi 20.x atau terbaru)
+- [ffmpeg](https://ffmpeg.org/) (opsional, hanya untuk jalur CCTV)
 - Akun [Neon](https://neon.tech/) untuk basis data PostgreSQL (lihat `docs/16_CONFIG_REFERENCE.md`)
 - Git
 

@@ -19,4 +19,5 @@
 | SSE | Server-Sent Events, aliran satu arah server → browser |
 | Sensor fusion | Penggabungan beberapa sumber data untuk meningkatkan akurasi |
 | SPBU | Stasiun Pengisian Bahan Bakar Umum |
+| ONNX | Format model ML portabel; dijalankan lewat onnxruntime-node |
 | YOLO | Model deteksi objek untuk menghitung kendaraan |

@@ -14,7 +14,7 @@
 | Auth | Neon Auth (JWKS) | Keputusan pemilik |
 | Storage | Neon Storage, S3-compatible (`@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner`) | Keputusan pemilik |
 | Konfigurasi | `dotenv` untuk skrip Node/worker | Keputusan pemilik |
-| Worker | Python 3.9+, OpenCV/YOLO | README, PRD |
+| Worker | Node.js >= 20 (TypeScript), ffmpeg, onnxruntime-node (YOLO ONNX) | ADR-008 |
 | Deployment | Vercel (client, serverless functions) | PRD |
 | Repositori | GitHub, monorepo (`web-client`, `vision-engine`) | PRD |
 
@@ -38,5 +38,5 @@
 
 - Next.js 16.4 memiliki *breaking changes*; baca `web-client/node_modules/next/dist/docs/` sebelum menulis kode (lihat `web-client/AGENTS.md`).
 - `web-client` memakai `cacheComponents`; Route Handler `/api/spbu` berjalan saat request (tanpa cache) dan peta dirender hanya di klien.
-- `vision-engine/main.py` masih placeholder.
+- Akses CCTV Dishub belum terverifikasi; jalur CCTV bersifat opsional dan fail-soft.
 - Pustaka peta: Leaflet + react-leaflet, dirender klien saja (ADR-005 diputuskan).

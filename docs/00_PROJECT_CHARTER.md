@@ -23,7 +23,7 @@ Antrean panjang di SPBU wilayah Malang marak terjadi akibat kelangkaan atau kete
 **In scope**
 - Peta SPBU Malang dengan status terkini (`NORMAL`, `ANTRE_PANJANG`, `KOSONG`).
 - Pelaporan status oleh warga dengan validasi geofencing.
-- Worker Python: penarikan Traffic API dan pengolahan CCTV publik.
+- Worker Node.js (TypeScript): penarikan Traffic API dan pengolahan CCTV publik.
 - Algoritma *confidence score* gabungan tiga sumber.
 - Webhook notifikasi Telegram/WhatsApp.
 

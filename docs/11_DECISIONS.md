@@ -7,7 +7,7 @@
 ## ADR-001 — Monorepo dengan dua paket
 - **Tanggal:** 2026-10-14 (dicatat; keputusan awal dari PRD)
 - **Keputusan:** Satu repositori berisi `/web-client` dan `/vision-engine`.
-- **Konteks:** Tim kecil, dua bahasa (TypeScript dan Python), skema data bersama.
+- **Konteks:** Tim kecil, dua bahasa (TypeScript dan Python; kemudian disatukan ke TypeScript, lihat ADR-008), skema data bersama.
 - **Alternatif ditolak:** Repositori terpisah (overhead koordinasi).
 
 ## ADR-002 — Database dan platform data: Neon (menggantikan Supabase)
@@ -49,3 +49,16 @@
 - **Tanggal:** 2026-10-14
 - **Keputusan:** Browser tidak pernah menerima `DATABASE_URL` maupun kredensial storage. Baca dan tulis data dilakukan oleh Route Handler/Server Component di `web-client` dan oleh `vision-engine`. Variabel lingkungan tidak berawalan `NEXT_PUBLIC_`.
 - **Alternatif ditolak:** Neon Data API/klien langsung dengan RLS (kompleksitas lebih tinggi untuk kebutuhan ini).
+
+## ADR-008 — Backend/worker memakai Node.js (TypeScript), bukan Python
+- **Tanggal:** 2026-10-14
+- **Status:** Diputuskan oleh pemilik proyek; menggantikan rencana PRD awal (Python + OpenCV).
+- **Keputusan:** `/vision-engine` ditulis dengan Node.js (TypeScript). Skrip Python (`main.py`, `requirements.txt`) dihapus.
+- **Konteks:** Satu bahasa untuk seluruh monorepo mengurangi biaya konteks dan memudahkan berbagi tipe dan akses database (`@neondatabase/serverless`) dengan `web-client`.
+- **Konsekuensi:**
+  - Pengganti OpenCV: **ffmpeg** untuk mengambil frame (HLS/RTSP/snapshot) dan **onnxruntime-node** dengan model YOLO format ONNX untuk deteksi kendaraan (pra/pasca-pemrosesan dan NMS ditulis sendiri). OpenCV tidak dipakai.
+  - Deteksi dibungkus antarmuka `Detector` agar mesin deteksi dapat diganti.
+  - Penjadwalan: loop internal (`npm run start`) atau satu siklus (`npm run run:once`) untuk cron/GitHub Actions.
+  - Kebutuhan runtime: Node.js >= 20, ffmpeg terpasang (hanya untuk CCTV), berkas model ONNX (tidak disimpan di repo).
+- **Alternatif ditolak:** Python + OpenCV (dua toolchain; ditolak pemilik), opencv4nodejs (build native rapuh).
+
