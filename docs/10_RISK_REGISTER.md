@@ -13,4 +13,6 @@
 | R-05 | Batas tier gratis Neon/Vercel terlampaui | Sedang | Sedang | Monitoring kuota, retensi data `status_logs` | _TBD_ |
 | R-06 | Privasi lokasi pengguna | Rendah | Tinggi | Tidak menyimpan koordinat mentah pelapor; kebijakan privasi | _TBD_ |
 | R-07 | False alarm tinggi memicu notifikasi tidak perlu | Sedang | Sedang | Sensor fusion dan ambang confidence sebelum notifikasi | _TBD_ |
+| R-09 | Model/akses CCTV dan kunci TomTom tidak tersedia sehingga jalur otomatis belum terbukti di lapangan | Tinggi | Sedang | Jalur otomatis fail-soft; crowdsourcing tetap berjalan; verifikasi live sebelum klaim akurasi | _TBD_ |
+| R-10 | Bobot/ambang confidence belum dikalibrasi | Tinggi | Sedang | Tinjau dengan data nyata sebelum promosi besar-besaran | _TBD_ |
 | R-08 | Breaking changes Next.js 16 | Sedang | Rendah | Rujuk dokumentasi lokal di `node_modules/next/dist/docs/` | satset-dev |

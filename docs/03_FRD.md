@@ -18,7 +18,7 @@
 |---|---|---|---|
 | FR-004 | Pengguna membuka modal pelaporan dari SPBU | Modal memuat pilihan status dan tombol kirim | F-03 |
 | FR-005 | Aplikasi mengambil koordinat via `navigator.geolocation` | Izin ditolak → pesan jelas dan laporan tidak dikirim | F-03 |
-| FR-006 | Laporan di luar radius 100 m ditolak | Jarak > 100 m → penolakan dengan pesan; tidak ada baris dibuat | F-04 |
+| FR-006 | Laporan di luar radius 100 m ditolak | Jarak > 100 m → 403 dengan pesan dan jarak; tidak ada baris dibuat. Kontrak: [21_BACKEND.md](21_BACKEND.md) | F-04 |
 | FR-007 | Laporan valid disimpan dengan `source = CROWDSOURCE` | Baris `status_logs` terbentuk dengan `spbu_id`, `status`, `confidence_score` | F-03 |
 
 ## Data Otomatis

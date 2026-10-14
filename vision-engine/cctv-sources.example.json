@@ -1,0 +1,17 @@
+{
+  "sources": [
+    {
+      "spbuName": "SPBU Tlogomas",
+      "url": "https://contoh.invalid/snapshot/tlogomas.jpg",
+      "type": "snapshot",
+      "roi": [[0.05, 0.4], [0.95, 0.4], [0.95, 0.98], [0.05, 0.98]],
+      "capacity": 8
+    },
+    {
+      "spbuId": "00000000-0000-0000-0000-000000000000",
+      "url": "rtsp://contoh.invalid:554/stream1",
+      "type": "stream",
+      "capacity": 10
+    }
+  ]
+}

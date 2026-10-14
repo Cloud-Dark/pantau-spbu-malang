@@ -1,0 +1,41 @@
+# CONTOH penjadwalan vision-engine lewat GitHub Actions (satu siklus tiap 10 menit).
+# Catatan: cron GitHub Actions bisa tertunda beberapa menit saat beban tinggi dan interval
+# minimum praktisnya 5 menit. Untuk interval rapat/CCTV streaming, pakai VPS + systemd (lihat vision-engine/README.md).
+name: vision-engine-cron
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "1 = hanya log, tidak menulis ke database"
+        default: "0"
+
+concurrency:
+  group: vision-engine-cron
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  run-once:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: vision-engine
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: vision-engine/package-lock.json
+      - run: npm ci --omit=optional # onnxruntime-node tidak dibutuhkan untuk mode Traffic saja
+      - run: npm run run:once
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          TRAFFIC_API_KEY: ${{ secrets.TRAFFIC_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run || '0' }}

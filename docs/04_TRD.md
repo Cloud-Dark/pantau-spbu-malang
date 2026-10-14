@@ -29,10 +29,12 @@
 | TR-005 | Worker menulis ke Neon memakai `DATABASE_URL` server; tidak pernah diekspos ke klien | FR-010 |
 | TR-006 | Kunci API (Traffic API, `DATABASE_URL`, kredensial Neon Storage, Telegram) disimpan di variabel lingkungan | FR-008, FR-012 |
 | TR-007 | Browser tidak terhubung ke database; akses hanya lewat server (ADR-007). Role database aplikasi diberi hak minimum (`SELECT`/`INSERT` pada tabel terkait) | FR-001 |
-| TR-010 | Koneksi memakai `sslmode=require`; kredensial tidak pernah masuk repositori — lihat [16_CONFIG_REFERENCE.md](16_CONFIG_REFERENCE.md) | — |
-| TR-011 | Berkas di Neon Storage diakses lewat *presigned URL* berkedaluwarsa (`forcePathStyle: true`) | FR-009 |
 | TR-008 | Worker terjadwal (cron) — mekanisme penjadwal _TBD_ | FR-008 |
 | TR-009 | Perhitungan confidence score dapat diuji (fungsi murni) | FR-011 |
+| TR-010 | Koneksi memakai `sslmode=require`; kredensial tidak pernah masuk repositori — lihat [16_CONFIG_REFERENCE.md](16_CONFIG_REFERENCE.md) | — |
+| TR-011 | Berkas di Neon Storage diakses lewat *presigned URL* berkedaluwarsa (`forcePathStyle: true`) | FR-009 |
+| TR-012 | Algoritma confidence tertimbang berupa fungsi murni teruji ([22_CONFIDENCE_ALGORITHM.md](22_CONFIDENCE_ALGORITHM.md)) | FR-011 |
+| TR-013 | Notifikasi lewat `/api/cron/notify` (Vercel Cron), dilindungi `CRON_SECRET`, dengan cooldown di `notification_log` | FR-012 |
 
 ## 3. Batasan Teknis
 

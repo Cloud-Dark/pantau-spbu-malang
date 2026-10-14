@@ -54,3 +54,12 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
    npm run dev            # http://localhost:3000
    npm run db:simulate    # tambah status acak; peta ikut berubah dalam ~10 detik
    ```
+
+4. **Worker (opsional):**
+   ```bash
+   cd vision-engine
+   npm install
+   npm run run:once       # satu siklus Traffic/CCTV (butuh DATABASE_URL; lihat vision-engine/README.md)
+   ```
+
+Dokumentasi lengkap ada di [`docs/`](docs/README.md).

@@ -36,7 +36,10 @@ flowchart LR
 1. Sumber (Traffic API, CCTV, laporan warga) menghasilkan observasi.
 2. Observasi ditulis sebagai baris `status_logs` dengan `source` dan `confidence_score`.
 3. Klien memperoleh `INSERT` baru lewat polling/SSE dari Route Handler (ADR-006); peta diperbarui. Browser tidak pernah terhubung langsung ke database (ADR-007).
-4. Status kritis memicu webhook notifikasi (Phase 4).
+4. Status kritis memicu notifikasi lewat `/api/cron/notify` (Vercel Cron, 10 menit) ke Telegram/WhatsApp.
+5. Status yang ditampilkan adalah agregat tertimbang seluruh sumber ([22_CONFIDENCE_ALGORITHM.md](22_CONFIDENCE_ALGORITHM.md)).
+
+Rincian: [21_BACKEND.md](21_BACKEND.md), [23_VISION_ENGINE.md](23_VISION_ENGINE.md).
 
 ## 4. Keputusan Arsitektur
 

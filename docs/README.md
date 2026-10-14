@@ -20,5 +20,10 @@
 | [13_GLOSSARY.md](13_GLOSSARY.md) | Glosarium |
 | [16_CONFIG_REFERENCE.md](16_CONFIG_REFERENCE.md) | Konfigurasi dan variabel lingkungan |
 | [20_DATABASE.md](20_DATABASE.md) | Skema database |
+| [14_SECURITY_THREAT_MODEL.md](14_SECURITY_THREAT_MODEL.md) | Model ancaman |
+| [21_BACKEND.md](21_BACKEND.md) | Kontrak API web |
+| [22_CONFIDENCE_ALGORITHM.md](22_CONFIDENCE_ALGORITHM.md) | Rumus confidence score |
+| [23_VISION_ENGINE.md](23_VISION_ENGINE.md) | Worker Node.js |
+| [promosi/](promosi/) | Strategi dan materi promosi |
 | [31_CHANGELOG.md](31_CHANGELOG.md) | Riwayat perubahan |
 | [plans/](plans/) | Rencana implementasi per fitur |
