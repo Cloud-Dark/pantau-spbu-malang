@@ -6,7 +6,7 @@ Inisiatif *open-source* untuk memantau ketersediaan BBM dan panjang antrean di b
 
 Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagian utama:
 
-- **`/web-client`**: Antarmuka *frontend* interaktif berbasis peta. Dibangun menggunakan Next.js dan Tailwind CSS, terhubung langsung ke basis data Supabase untuk pembaruan data secara *real-time* (mendukung pelaporan *crowdsourcing* dan visualisasi).
+- **`/web-client`**: Antarmuka *frontend* interaktif berbasis peta. Dibangun menggunakan Next.js dan Tailwind CSS, mengambil data dari basis data Neon melalui server (Route Handler) untuk pembaruan status mendekati *real-time* (mendukung pelaporan *crowdsourcing* dan visualisasi).
 - **`/vision-engine`**: Skrip *backend* dan *worker* berbasis Python. Bertugas untuk melakukan penarikan data dari API Lalu Lintas (Traffic API) dan memproses tangkapan CCTV publik menggunakan OpenCV untuk memvalidasi kepadatan antrean.
 
 ## 🛠️ Tech Stack
@@ -18,7 +18,7 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 **Database & Realtime Data**  
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Neon](https://img.shields.io/badge/Neon-00E599?style=for-the-badge&logo=neon&logoColor=black)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
 **AI & Computer Vision Pipeline**  
@@ -33,7 +33,7 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
 ### Prasyarat
 - [Node.js](https://nodejs.org/) (versi 18.x atau terbaru)
 - [Python](https://www.python.org/) (versi 3.9 atau terbaru)
-- Akun [Supabase](https://supabase.com/) untuk inisialisasi basis data
+- Akun [Neon](https://neon.tech/) untuk basis data PostgreSQL (lihat `docs/16_CONFIG_REFERENCE.md`)
 - Git
 
 ### Langkah Instalasi

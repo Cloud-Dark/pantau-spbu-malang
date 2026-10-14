@@ -23,7 +23,7 @@ Antrean panjang di SPBU Malang akibat kelangkaan/keterlambatan pasokan BBM. Warg
 | ID | Fitur | Prioritas | Phase |
 |---|---|---|---|
 | F-01 | Peta SPBU dengan penanda status | Must | 1 |
-| F-02 | Pembaruan status *real-time* (Supabase Realtime) | Must | 1 |
+| F-02 | Pembaruan status *real-time* (polling/SSE, lihat ADR-006) | Must | 1 |
 | F-03 | Pelaporan status oleh warga (modal/UI) | Must | 2 |
 | F-04 | Validasi geofencing laporan (radius 100 m) | Must | 2 |
 | F-05 | Penarikan Traffic API (radius 50 m dari gerbang SPBU) | Should | 3 |
@@ -59,7 +59,7 @@ Antrean panjang di SPBU Malang akibat kelangkaan/keterlambatan pasokan BBM. Warg
 ## 7. Asumsi dan Catatan Terbuka
 
 - Akses stream CCTV Dishub Malang belum pasti ("jika accessible").
-- PRD menyebut *Neon* pada Phase 1 namun stack utama adalah Supabase — lihat [11_DECISIONS.md](11_DECISIONS.md) (ADR-002).
+- Platform data memakai Neon sepenuhnya (PostgreSQL, Auth, Storage) — lihat [11_DECISIONS.md](11_DECISIONS.md) (ADR-002). PRD asli menyebut Supabase pada bagian stack; bagian itu digantikan.
 - Radius 50 m (Traffic API) dan 100 m (geofence) adalah dua parameter berbeda.
 
 Detail turunan: [03_FRD.md](03_FRD.md), [04_TRD.md](04_TRD.md).

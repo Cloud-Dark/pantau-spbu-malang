@@ -11,6 +11,9 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - 2026-10-14: Set dokumen awal `docs/` (charter, PRD, BRD, FRD, TRD, arsitektur, rencana implementasi, checklist, roadmap, risk register, decisions, glosarium, database) dan rencana Fase 1.
 
+### Changed
+- 2026-10-14: Platform data diganti dari Supabase ke Neon sepenuhnya (PostgreSQL, Auth, Storage). Realtime diganti polling/SSE (ADR-002, ADR-006, ADR-007). Ditambah `16_CONFIG_REFERENCE.md`.
+
 ## Riwayat sebelumnya (dari git)
 - Inisiasi struktur `web-client` dan `vision-engine`.
 - README dengan tech stack dan struktur monorepo.

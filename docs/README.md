@@ -18,6 +18,7 @@
 | [10_RISK_REGISTER.md](10_RISK_REGISTER.md) | Register risiko |
 | [11_DECISIONS.md](11_DECISIONS.md) | Keputusan arsitektur (ADR) |
 | [13_GLOSSARY.md](13_GLOSSARY.md) | Glosarium |
+| [16_CONFIG_REFERENCE.md](16_CONFIG_REFERENCE.md) | Konfigurasi dan variabel lingkungan |
 | [20_DATABASE.md](20_DATABASE.md) | Skema database |
 | [31_CHANGELOG.md](31_CHANGELOG.md) | Riwayat perubahan |
 | [plans/](plans/) | Rencana implementasi per fitur |

@@ -7,10 +7,11 @@
 ## Fase 1 — MVP dan Scaffolding
 - [x] Buat GitHub Organization dan inisiasi monorepo
 - [x] Inisiasi struktur `web-client` (Next.js) dan `vision-engine` (placeholder)
-- [ ] Setup project database dan buat tabel dasar (Supabase; PRD menyebut Neon — lihat ADR-002)
+- [x] Provisioning project Neon (database, Auth, Storage) — kredensial dikelola di luar repositori
+- [ ] Buat tabel dasar di Neon (migrasi)
 - [ ] Hubungkan `web-client` dengan Vercel CLI
 - [ ] Peta sederhana menampilkan titik SPBU dari database
-- [ ] *Realtime listener* Supabase di frontend
+- [ ] Pembaruan status realtime di frontend (polling → SSE, ADR-006)
 
 ## Fase 2 — Crowdsourcing dan Geofencing
 - [ ] Modal/UI pelaporan status

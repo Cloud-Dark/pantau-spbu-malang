@@ -10,11 +10,17 @@
 - **Konteks:** Tim kecil, dua bahasa (TypeScript dan Python), skema data bersama.
 - **Alternatif ditolak:** Repositori terpisah (overhead koordinasi).
 
-## ADR-002 — Database: Supabase vs Neon
+## ADR-002 — Database dan platform data: Neon (menggantikan Supabase)
 - **Tanggal:** 2026-10-14
-- **Status:** **Terbuka — perlu konfirmasi pemilik.**
-- **Konteks:** Stack utama PRD adalah Supabase (PostgreSQL + Realtime), tetapi checklist Phase 1 menyebut "Setup project Neon". Fitur realtime hanya tersedia bawaan di Supabase.
-- **Usulan:** Gunakan Supabase; koreksi item checklist PRD.
+- **Status:** Diputuskan oleh pemilik proyek.
+- **Keputusan:** Seluruh platform data memakai **Neon**: PostgreSQL (koneksi *pooled*), Neon Auth, dan Neon Storage (S3-compatible). Supabase tidak digunakan sama sekali.
+- **Konteks:** PRD awal mencampur Neon (checklist) dan Supabase (stack). Pemilik memutuskan Neon sepenuhnya.
+- **Konsekuensi:**
+  - Tidak ada Supabase Realtime. Pembaruan *real-time* diganti — lihat ADR-006.
+  - Tidak ada RLS ala klien-langsung. Klien tidak pernah terhubung ke database; semua akses lewat server (Route Handler / Server Component) — lihat ADR-007.
+  - Autentikasi (jika dibutuhkan) memakai Neon Auth.
+  - Penyimpanan berkas (mis. cuplikan CCTV, bukti laporan) memakai Neon Storage via API S3.
+- **Alternatif ditolak:** Supabase (ditolak pemilik).
 
 ## ADR-003 — Sensor fusion tiga sumber
 - **Tanggal:** 2026-10-14 (dicatat dari PRD)
@@ -28,3 +34,16 @@
 
 ## ADR-005 — Pustaka peta
 - **Status:** Terbuka — Leaflet atau React-Map-GL (_TBD_).
+
+## ADR-006 — Mekanisme pembaruan real-time tanpa Supabase Realtime
+- **Tanggal:** 2026-10-14
+- **Status:** Diusulkan.
+- **Konteks:** Neon tidak menyediakan *realtime subscription* bawaan. Koneksi *pooled* (PgBouncer) tidak mendukung `LISTEN/NOTIFY` yang andal.
+- **Keputusan awal (Phase 1):** *polling* ringan dari klien ke Route Handler (interval _TBD_, mis. 10 detik) yang membaca status terbaru.
+- **Peningkatan (opsional):** Server-Sent Events dari Route Handler dengan koneksi *direct* (non-pooled) memakai `LISTEN/NOTIFY`, atau layanan pub/sub terpisah (_TBD_).
+- **Alternatif ditolak:** Klien langsung ke database (tidak aman).
+
+## ADR-007 — Akses data hanya lewat server
+- **Tanggal:** 2026-10-14
+- **Keputusan:** Browser tidak pernah menerima `DATABASE_URL` maupun kredensial storage. Baca dan tulis data dilakukan oleh Route Handler/Server Component di `web-client` dan oleh `vision-engine`. Variabel lingkungan tidak berawalan `NEXT_PUBLIC_`.
+- **Alternatif ditolak:** Neon Data API/klien langsung dengan RLS (kompleksitas lebih tinggi untuk kebutuhan ini).

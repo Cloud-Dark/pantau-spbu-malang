@@ -4,7 +4,7 @@
 > Terakhir diperbarui: 2026-10-14
 > Pemilik: satset-dev
 
-Skema awal dari PRD. Belum ada migrasi di repositori (_TBD_ — buat setelah ADR-002 diputuskan).
+Skema awal dari PRD. Database: Neon PostgreSQL (lihat ADR-002). Belum ada migrasi di repositori (_TBD_ — alat migrasi dipilih kemudian).
 
 ## `spbu_locations`
 
@@ -31,4 +31,5 @@ Skema awal dari PRD. Belum ada migrasi di repositori (_TBD_ — buat setelah ADR
 
 - Indeks `(spbu_id, created_at DESC)` untuk query status terbaru — usulan.
 - Status terkini per SPBU = baris terbaru atau hasil agregasi berbobot (Phase 4).
-- RLS: klien publik hanya `SELECT`; `INSERT` melalui server — lihat [04_TRD.md](04_TRD.md) (TR-007).
+- Akses hanya melalui server (ADR-007); role aplikasi diberi hak minimum — lihat [04_TRD.md](04_TRD.md) (TR-007).
+- Gunakan koneksi *pooled* untuk aplikasi; koneksi *direct* hanya untuk migrasi atau `LISTEN/NOTIFY`.

@@ -6,22 +6,22 @@
 
 ## Konteks
 
-Fase 1 membangun fondasi: database, peta SPBU, dan pembaruan realtime. Dikerjakan solo. Lihat [../06_IMPLEMENTATION_PLAN.md](../06_IMPLEMENTATION_PLAN.md).
+Fase 1 membangun fondasi: database, peta SPBU, dan pembaruan status. Dikerjakan solo. Lihat [../06_IMPLEMENTATION_PLAN.md](../06_IMPLEMENTATION_PLAN.md).
 
 ## Langkah Implementasi
 
-1. **Putuskan database** — konfirmasi Supabase vs Neon (ADR-002).
-2. **Buat project Supabase** dan migrasi tabel `spbu_locations`, `status_logs` + enum (lihat [../20_DATABASE.md](../20_DATABASE.md)); aktifkan RLS (`SELECT` publik).
+1. **Database** — Neon sudah diputuskan (ADR-002); project sudah tersedia. Konfigurasi `.env` lokal berdasarkan [../16_CONFIG_REFERENCE.md](../16_CONFIG_REFERENCE.md).
+2. **Migrasi tabel** `spbu_locations`, `status_logs` + enum di Neon (lihat [../20_DATABASE.md](../20_DATABASE.md)); buat role aplikasi berhak minimum.
 3. **Seed data SPBU Malang** — daftar dan koordinat _TBD_ (sumber data perlu ditentukan).
-4. **Bersihkan templat** `web-client/app/page.tsx`; atur variabel lingkungan `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+4. **Bersihkan templat** `web-client/app/page.tsx`; atur variabel lingkungan server-only `DATABASE_URL` (tanpa awalan `NEXT_PUBLIC_`).
 5. **Pilih pustaka peta** (ADR-005) dan tampilkan penanda dari `spbu_locations`.
-6. **Realtime listener** pada `status_logs` untuk memperbarui warna penanda.
+6. **Pembaruan status**: Route Handler membaca status terbaru dan klien melakukan polling (ADR-006) untuk memperbarui warna penanda.
 7. **Deploy** ke Vercel (Vercel CLI), set env di Vercel.
 
 ## File yang Disentuh
 
 - `web-client/app/page.tsx`, `web-client/app/layout.tsx`, `web-client/package.json`
-- Baru: komponen peta, klien Supabase (`web-client/lib/`), folder migrasi _TBD_
+- Baru: komponen peta, klien database Neon (`web-client/lib/db`), folder migrasi _TBD_
 
 ## Risiko
 
@@ -31,4 +31,4 @@ Fase 1 membangun fondasi: database, peta SPBU, dan pembaruan realtime. Dikerjaka
 
 ## Definisi Selesai
 
-Peta publik di Vercel menampilkan SPBU dari database dan berubah warna saat baris `status_logs` baru ditambahkan.
+Peta publik di Vercel menampilkan SPBU dari database dan berubah warna (lewat polling) saat baris `status_logs` baru ditambahkan.

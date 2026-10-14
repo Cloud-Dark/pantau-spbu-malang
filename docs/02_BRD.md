@@ -24,7 +24,7 @@ Masalah antrean BBM berdampak langsung pada mobilitas harian. Kombinasi data oto
 
 ## 4. Constraint Bisnis
 
-- Anggaran minimal; memanfaatkan tier gratis (Vercel, Supabase). Batas tier: _TBD_.
+- Anggaran minimal; memanfaatkan tier gratis (Vercel, Neon). Batas tier: _TBD_.
 - Biaya Traffic API (Google/TomTom) perlu dikendalikan (frekuensi polling) — _TBD_.
 - Akses CCTV publik bergantung izin pihak berwenang.
 - Privasi: lokasi GPS pelapor tidak boleh disimpan lebih dari yang diperlukan untuk validasi — _TBD_ kebijakan retensi.
