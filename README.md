@@ -62,4 +62,56 @@ Proyek ini menggunakan struktur *monorepo* yang membagi sistem menjadi dua bagia
    npm run run:once       # satu siklus Traffic/CCTV (butuh DATABASE_URL; lihat vision-engine/README.md)
    ```
 
-Dokumentasi lengkap ada di [`docs/`](docs/README.md).
+## ✅ Status Pengembangan (per 2026-10-14)
+
+### Fase 1 — MVP dan Scaffolding
+- [x] Buat GitHub Organization dan inisiasi monorepo
+- [x] Struktur `web-client` (Next.js) dan `vision-engine`
+- [x] Project Neon (database, Auth, Storage) dan tabel dasar (migrasi 001)
+- [x] Peta SPBU dari database (Leaflet + `/api/spbu`)
+- [x] Pembaruan status di frontend via polling 10 detik
+- [ ] Deploy `web-client` ke Vercel
+
+### Fase 2 — Crowdsourcing dan Geofencing
+- [x] Modal/UI pelaporan status
+- [x] `navigator.geolocation` untuk koordinat pelapor
+- [x] Server menolak laporan di luar radius 100 m (plus cek akurasi dan rate limit)
+
+### Fase 3 — Vision Engine dan Traffic Integration
+- [x] Proyek Node.js (TypeScript) `/vision-engine` (menggantikan Python)
+- [x] Penjadwal penarik Traffic API (TomTom) — kode dan uji mock
+- [x] Pipeline CCTV (ffmpeg + YOLO ONNX) — kode dan uji sintetis
+- [x] `INSERT` otomatis ke `status_logs` (teruji ke Neon nyata)
+
+### Fase 4 — Rilis Publik dan Otomasi
+- [x] Algoritma pembobotan confidence score
+- [x] Webhook notifikasi Telegram/WhatsApp (`/api/cron/notify`)
+- [x] Materi promosi (`docs/promosi/`)
+- [ ] Menjalankan kampanye promosi ke warga Malang
+
+## 🚧 Yang Masih Kurang
+
+**Wajib sebelum rilis publik**
+- [ ] **Deploy ke Vercel** — import repo, Root Directory `web-client`, isi environment variables.
+- [ ] **Environment produksi** — `DATABASE_URL`, `CRON_SECRET` (tanpa ini `/api/cron/notify` selalu 401), `REPORT_HASH_SALT` (acak dan rahasia), `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `WHATSAPP_WEBHOOK_URL`.
+- [ ] **Rotasi kredensial** — password Neon dan secret storage pernah terbagikan di chat.
+- [ ] **Koordinat SPBU asli** — seed saat ini hanya 8 titik perkiraan; titik yang meleset membuat Traffic API membaca jalan lain.
+- [ ] **Plan Vercel** — cron tiap 10 menit tidak diizinkan di plan Hobby (hanya harian).
+
+**Belum terverifikasi di dunia nyata**
+- [ ] **TomTom Traffic API** — daftar akun, isi `TRAFFIC_API_KEY`, cek kuota; parsing baru diuji dengan mock.
+- [ ] **Akses CCTV Dishub** — izin dan format (snapshot/HLS/RTSP) belum dikonfirmasi.
+- [ ] **Model YOLO (ONNX)** dan `onnxruntime-node` — belum ada model; detektor baru diuji dengan sesi palsu.
+- [ ] **Notifikasi nyata** — pengiriman ke Telegram/WhatsApp belum pernah diuji (baru dengan mock).
+- [ ] **Workflow GitHub Actions** (`vision-engine-cron.yml`) belum pernah dijalankan.
+
+**Kalibrasi dan penguatan**
+- [ ] Kalibrasi bobot confidence (CCTV 0,40 / Traffic 0,35 / warga 0,25) dan ambang (`TRAFFIC_NORMAL_RATIO` 0,7; `CCTV_QUEUE_THRESHOLD` 8; `CRITICAL_MIN_CONFIDENCE` 70) dengan data lapangan.
+- [ ] Rate limit laporan belum atomik (celah *race*); cron ganda bisa mengirim notifikasi duplikat (belum ada lock).
+- [ ] Perlindungan spam lebih kuat (CAPTCHA/limit di edge), karena rate limit berbasis IP+UA mudah dielakkan; GPS *spoofing* tidak bisa dicegah penuh.
+- [ ] Kebijakan privasi publik dan retensi `reporter_hash`.
+- [ ] Opsi lebih cepat dari polling (SSE) bila diperlukan.
+- [ ] Penyedia traffic Google belum diimplementasikan (hanya TomTom).
+- [ ] Dokumen belum ada: `docs/standards/` dan `12_TEST_STRATEGY.md`.
+
+Dokumentasi lengkap ada di [`docs/`](docs/README.md); detail progres di [`docs/07_MASTER_CHECKLIST.md`](docs/07_MASTER_CHECKLIST.md).
