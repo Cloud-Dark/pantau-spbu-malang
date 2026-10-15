@@ -1,0 +1,18 @@
+{
+  "sources": [
+    {
+      "spbuName": "SPBU 54.651.06 Soekarno Hatta",
+      "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+      "type": "stream",
+      "roi": [[0.1, 0.3], [0.9, 0.3], [0.9, 0.9], [0.1, 0.9]],
+      "capacity": 15
+    },
+    {
+      "spbuName": "SPBU 54.651.05 Tlogomas",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Traffic_in_Jakarta.jpg",
+      "type": "snapshot",
+      "roi": [[0.0, 0.5], [1.0, 0.5], [1.0, 1.0], [0.0, 1.0]],
+      "capacity": 8
+    }
+  ]
+}
