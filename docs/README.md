@@ -1,7 +1,7 @@
 # Dokumentasi Pantau SPBU Malang
 
 > Status: Draft
-> Terakhir diperbarui: 2026-10-14
+> Terakhir diperbarui: 2026-10-15
 > Pemilik: satset-dev
 
 | Dokumen | Isi |
@@ -24,6 +24,7 @@
 | [21_BACKEND.md](21_BACKEND.md) | Kontrak API web |
 | [22_CONFIDENCE_ALGORITHM.md](22_CONFIDENCE_ALGORITHM.md) | Rumus confidence score |
 | [23_VISION_ENGINE.md](23_VISION_ENGINE.md) | Worker Node.js |
+| [data/data_spbu_malang.csv](data/data_spbu_malang.csv) | Pemetaan 53 titik koordinat gerbang SPBU Malang Raya |
 | [promosi/](promosi/) | Strategi dan materi promosi |
 | [31_CHANGELOG.md](31_CHANGELOG.md) | Riwayat perubahan |
 | [plans/](plans/) | Rencana implementasi per fitur |
